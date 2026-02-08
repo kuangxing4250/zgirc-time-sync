@@ -1,0 +1,113 @@
+2026-02-08 15:45:12,689 - INFO - GUI界面已启动
+2026-02-08 15:45:17,065 - INFO - 启动项设置取消成功
+2026-02-08 15:45:17,065 - INFO - 开机自启动已禁用
+2026-02-08 15:45:17,448 - INFO - 启动项设置取消成功
+2026-02-08 15:45:17,448 - INFO - 开机自启动已禁用
+2026-02-08 15:45:18,560 - INFO - 启动项设置取消成功
+2026-02-08 15:45:18,560 - INFO - 开机自启动已禁用
+2026-02-08 15:45:20,432 - INFO - 启动项设置取消成功
+2026-02-08 15:45:20,432 - INFO - 开机自启动已禁用
+2026-02-08 15:45:21,169 - INFO - 自动同步已启用
+2026-02-08 15:45:21,761 - INFO - 自动同步已启用
+2026-02-08 15:45:25,112 - INFO - 自动同步已启用
+2026-02-08 15:45:25,849 - INFO - 自动同步已启用
+2026-02-08 15:45:28,233 - INFO - 自动同步已启用
+2026-02-08 15:45:28,689 - INFO - 自动同步已启用
+2026-02-08 15:45:29,112 - INFO - 自动同步已启用
+2026-02-08 15:45:29,297 - INFO - 自动同步已启用
+2026-02-08 15:45:30,904 - INFO - 正在更新程序: http://time.zgric.top/update/lastupdate_time.exe
+2026-02-08 15:45:30,906 - WARNING - 备份失败: [Errno 22] Invalid argument: 'C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe'
+2026-02-08 15:45:30,906 - INFO - 执行命令: "D:\trae\wget.exe" -O "C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe.new" "http://time.zgric.top/update/lastupdate_time.exe"
+2026-02-08 15:45:31,211 - ERROR - 更新失败: --2026-02-08 15:45:31--  http://time.zgric.top/update/lastupdate_time.exe
+
+Resolving time.zgric.top (time.zgric.top)... failed: 不知道这样的主机。 .
+
+wget: unable to resolve host address 'time.zgric.top'
+
+
+2026-02-08 15:45:32,096 - INFO - 程序退出
+2026-02-08 15:48:42,180 - INFO - GUI界面已启动
+2026-02-08 15:48:42,181 - INFO - 自动同步已启动（GUI模式）
+2028-02-08 15:48:57,279 - INFO - 开始时间同步...
+2028-02-08 15:48:57,279 - INFO - 正在从 http://time.windows.com 获取时间...
+2028-02-08 15:48:57,584 - ERROR - 获取时间失败: 404 Client Error: Not Found for url: http://time.windows.com/
+2026-02-08 15:49:30,127 - INFO - 自动同步已禁用
+2026-02-08 15:49:30,127 - INFO - 自动同步已取消
+2026-02-08 15:49:30,871 - INFO - 自动同步已启用
+2026-02-08 15:49:30,872 - INFO - 自动同步已启动（GUI模式）
+2026-02-08 15:49:31,535 - INFO - 自动同步已禁用
+2026-02-08 15:49:31,535 - INFO - 自动同步已取消
+2026-02-08 15:49:32,596 - INFO - 启动项设置成功
+2026-02-08 15:49:32,596 - INFO - 开机自启动已启用
+2026-02-08 15:49:33,566 - INFO - 启动项设置取消成功
+2026-02-08 15:49:33,567 - INFO - 开机自启动已禁用
+2026-02-08 15:49:34,834 - INFO - 正在更新程序: http://time.zgric.top/update/lastupdate_time.exe
+2026-02-08 15:49:34,834 - INFO - 开始下载更新...
+2026-02-08 15:49:34,834 - INFO - 执行命令: "D:\trae\wget.exe" -O "C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\time_new.exe" "http://time.zgric.top/update/lastupdate_time.exe"
+2026-02-08 15:49:35,044 - ERROR - 更新失败: --2026-02-08 15:49:35--  http://time.zgric.top/update/lastupdate_time.exe
+
+Resolving time.zgric.top (time.zgric.top)... failed: 不知道这样的主机。 .
+
+wget: unable to resolve host address 'time.zgric.top'
+
+
+2026-02-08 15:49:37,703 - INFO - 程序退出
+2026-02-08 15:50:33,500 - INFO - GUI界面已启动
+2025-02-08 15:50:40,018 - INFO - 开始时间同步...
+2025-02-08 15:50:40,019 - INFO - 正在从 http://worldtimeapi.org/api/timezone/Asia/Shanghai 获取时间...
+2025-02-08 15:50:40,490 - WARNING - 从 http://worldtimeapi.org/api/timezone/Asia/Shanghai 获取时间失败: ('Connection aborted.', ConnectionResetError(10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None))
+2025-02-08 15:50:40,491 - INFO - 正在从 http://api.m.taobao.com/rest/api3.do?method=taobao.time.get 获取时间...
+2025-02-08 15:50:40,511 - WARNING - 从 http://api.m.taobao.com/rest/api3.do?method=taobao.time.get 获取时间失败: HTTPConnectionPool(host='api.m.taobao.com', port=80): Max retries exceeded with url: /rest/api3.do?method=taobao.time.get (Caused by NameResolutionError("HTTPConnection(host='api.m.taobao.com', port=80): Failed to resolve 'api.m.taobao.com' ([Errno 11001] getaddrinfo failed)"))
+2025-02-08 15:50:40,512 - ERROR - 所有时间API都无法获取时间
+2025-02-08 15:51:13,498 - INFO - 正在更新程序: http://time.zgric.top/update/lastupdate_time.exe
+2025-02-08 15:51:13,499 - INFO - 开始下载更新...
+2025-02-08 15:51:13,499 - INFO - 执行命令: "D:\trae\wget.exe" -O "C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\time_new.exe" "http://time.zgric.top/update/lastupdate_time.exe"
+2025-02-08 15:51:13,711 - ERROR - 更新失败: --2025-02-08 15:51:13--  http://time.zgric.top/update/lastupdate_time.exe
+
+Resolving time.zgric.top (time.zgric.top)... failed: 不知道这样的主机。 .
+
+wget: unable to resolve host address 'time.zgric.top'
+
+
+2025-02-08 15:51:15,910 - INFO - 启动项设置成功
+2025-02-08 15:51:15,910 - INFO - 开机自启动已启用
+2025-02-08 15:51:16,271 - INFO - 启动项设置取消成功
+2025-02-08 15:51:16,271 - INFO - 开机自启动已禁用
+2025-02-08 15:51:16,728 - INFO - 自动同步已启用
+2025-02-08 15:51:16,728 - INFO - 自动同步已启动（GUI模式）
+2025-02-08 15:51:17,112 - INFO - 自动同步已禁用
+2025-02-08 15:51:17,112 - INFO - 自动同步已取消
+2025-02-08 15:51:17,664 - INFO - 程序退出
+2026-02-08 15:52:46,806 - INFO - GUI界面已启动
+2026-02-08 15:52:49,277 - INFO - 开始时间同步...
+2026-02-08 15:52:49,277 - INFO - 正在从 time1.aliyun.com 获取时间...
+2026-02-08 15:52:49,342 - INFO - 获取时间成功: 2026-02-08 15:52:49
+2026-02-08 15:52:49,000 - INFO - 系统时间已设置为: 2026-02-08 15:52:49
+2026-02-08 15:52:49,000 - INFO - 时间同步完成
+2035-02-08 15:52:53,881 - INFO - 开始时间同步...
+2035-02-08 15:52:53,881 - INFO - 正在从 time1.aliyun.com 获取时间...
+2035-02-08 15:52:53,914 - INFO - 获取时间成功: 2026-02-08 15:52:56
+2026-02-08 15:52:56,023 - INFO - 系统时间已设置为: 2026-02-08 15:52:56
+2026-02-08 15:52:56,023 - INFO - 时间同步完成
+2035-02-08 15:52:59,085 - INFO - 开始时间同步...
+2035-02-08 15:52:59,085 - INFO - 正在从 time1.aliyun.com 获取时间...
+2035-02-08 15:52:59,118 - INFO - 获取时间成功: 2026-02-08 15:53:01
+2026-02-08 15:53:01,012 - INFO - 系统时间已设置为: 2026-02-08 15:53:01
+2026-02-08 15:53:01,012 - INFO - 时间同步完成
+2026-02-08 15:53:02,980 - INFO - 程序退出
+2026-02-08 16:00:39,729 - INFO - GUI界面已启动
+2026-02-08 16:00:41,135 - INFO - 开始时间同步...
+2026-02-08 16:00:41,135 - INFO - 正在从 time1.aliyun.com 获取时间...
+2026-02-08 16:00:41,194 - INFO - 获取时间成功: 2026-02-08 16:00:41
+2026-02-08 16:00:41,000 - INFO - 系统时间已设置为: 2026-02-08 16:00:41
+2026-02-08 16:00:41,000 - INFO - 时间同步完成
+2026-02-08 16:00:42,997 - INFO - 日志保存已禁用
+2026-02-08 16:00:43,741 - INFO - 已清理 0 个过期日志文件
+2026-02-08 16:00:48,433 - INFO - 正在更新程序: http://time.zgric.top/update/lastupdate_time.exe
+2026-02-08 16:00:48,433 - INFO - 开始下载更新...
+2026-02-08 16:00:48,433 - INFO - 执行命令: "D:\trae\wget.exe" -O "C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\time_new.exe" "http://time.zgric.top/update/lastupdate_time.exe"
+2026-02-08 16:00:48,637 - ERROR - 更新失败: --2026-02-08 16:00:48--  http://time.zgric.top/update/lastupdate_time.exe
+Resolving time.zgric.top (time.zgric.top)... failed: 不知道这样的主机。 .
+wget: unable to resolve host address 'time.zgric.top'
+
+2026-02-08 16:00:50,854 - INFO - 程序退出

@@ -1,0 +1,6 @@
+2026-02-08 16:11:23,661 - INFO - 程序启动，版本: 4.2
+2026-02-08 16:11:24,094 - INFO - GUI界面已启动
+2026-02-08 16:11:28,349 - INFO - 日志保存已禁用
+2026-02-08 16:11:28,823 - INFO - 正在检查更新... 当前版本: 4.2
+2026-02-08 16:11:28,852 - ERROR - 检查更新失败: HTTPConnectionPool(host='time.zgric.top', port=80): Max retries exceeded with url: /update/lastupdate_time.exe (Caused by NameResolutionError("HTTPConnection(host='time.zgric.top', port=80): Failed to resolve 'time.zgric.top' ([Errno 11001] getaddrinfo failed)"))
+2026-02-08 16:11:41,106 - INFO - 程序退出
