@@ -189,4 +189,4 @@ A: 请检查：
 
 ---
 
-**Power by ZGIRC Dev Team** | © 2025 ZGIRC
+**Power by ZGIRC Dev Team** | © 2024 ZGIRC
