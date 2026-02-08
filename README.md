@@ -4,14 +4,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Windows](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
 
-简洁的时间同步工具，支持图形界面、开机自启动和一键更新。
+简洁的时间同步工具，支持图形界面、开机自启动和GitHub一键更新。
 
 ## 功能特性
 
 - **图形界面**：简洁直观的GUI设计
 - **时间同步**：使用阿里云NTP服务器同步时间
 - **开机自启动**：支持开机自动运行
-- **一键更新**：自动下载并替换最新版本
+- **一键更新**：从GitHub下载并自动替换更新
 - **日志管理**：支持保存日志、清理过期日志
 - **管理员权限**：自动处理系统时间修改
 
@@ -57,7 +57,6 @@ pyinstaller --onefile --windowed --name "ZGIRC_TimeSync" time.py
 直接运行EXE文件，显示图形界面：
 
 ```bash
-# 运行EXE
 ZGIRC_TimeSync.exe
 ```
 
@@ -101,22 +100,18 @@ zgirc-time-sync/
 
 ## 更新日志
 
-### v4.2（当前版本）
+### v0.0.2-beta.0（当前版本）
 
-- 移除每小时自动同步功能
 - 改用阿里云NTP服务器同步时间
-- 重写更新机制，直接下载并替换主程序EXE
-- 优化日志保存位置到程序同级目录
+- 从GitHub主分支下载更新，支持加速网站
+- 使用批处理脚本更新，解决文件占用问题
 - 添加中文注释，代码更易读
-- 修复多处Bug
 
-### v4.1
+### v0.0.1-beta.0
 
-- 全新GUI界面设计
-- 支持前台/后台双模式运行
-- 新增开机自启动管理
-- 新增一键更新功能
-- 改进日志系统
+- 初始测试版本
+- 基础时间同步功能
+- 图形界面
 
 ## 技术说明
 
@@ -129,13 +124,17 @@ zgirc-time-sync/
 
 ### 更新机制
 
-1. 从更新服务器下载最新EXE文件
+1. 从GitHub下载最新EXE文件（支持加速网站）
 2. 保存为 `time_new.exe`
-3. 备份当前EXE为 `time_old.exe`
-4. 替换主程序文件
-5. 3秒后自动重启
+3. 创建更新脚本 `update.bat`
+4. 程序自动退出
+5. 批处理脚本执行：删除旧EXE，移动新EXE，启动程序
+6. 清理更新脚本
 
-更新服务器：`http://time.zgric.top/update/lastupdate_time.exe`
+### 下载地址
+
+- **加速网站**：`https://gh.jasonzeng.dev/github.com/kuangxing4250/zgirc-time-sync/blob/main/dist/ZGIRC_TimeSync.exe`
+- **GitHub直连**：`https://raw.githubusercontent.com/kuangxing4250/zgirc-time-sync/main/dist/ZGIRC_TimeSync.exe`
 
 ## 常见问题
 
@@ -173,6 +172,13 @@ A: 请检查：
 - 使用Python 3.7+语法
 - 遵循PEP 8编码规范
 - 添加中文注释说明
+
+### 发布新版本
+
+1. 修改 `time.py` 中的 `VERSION` 版本号
+2. 打包EXE：`pyinstaller --onefile --windowed --name "ZGIRC_TimeSync" time.py`
+3. 将 `dist/ZGIRC_TimeSync.exe` 上传到GitHub `dist/` 目录
+4. 提交代码并打标签
 
 ## 许可证
 

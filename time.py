@@ -27,8 +27,22 @@ from pathlib import Path
 
 # ==================== 配置信息 ====================
 APP_NAME = "ZGIRC时间同步"
-VERSION = "4.2"
-UPDATE_URL = "http://time.zgric.top/update/lastupdate_time.exe"  # 更新服务器地址
+VERSION = "0.0.2-beta.0"
+
+# GitHub信息（用于更新）
+GITHUB_USER = "kuangxing4250"
+GITHUB_REPO = "zgirc-time-sync"
+EXE_NAME = "ZGIRC_TimeSync.exe"
+
+# GitHub文件下载链接（主分支dist目录）
+GITHUB_RAW_URL = f"https://raw.githubusercontent.com/{GITHUB_USER}/{GITHUB_REPO}/main/dist/{EXE_NAME}"
+GITHUB_BLOB_URL = f"https://github.com/{GITHUB_USER}/{GITHUB_REPO}/blob/main/dist/{EXE_NAME}"
+
+# 更新地址列表（加速网站优先）
+UPDATE_URLS = [
+    f"https://gh.jasonzeng.dev/{GITHUB_BLOB_URL}",
+    GITHUB_RAW_URL,
+]
 
 # NTP服务器列表（阿里云）
 NTP_SERVERS = [
@@ -329,136 +343,124 @@ class TimeSyncApp:
         def check_thread():
             self.logger.info(f"正在检查更新... 当前版本: {VERSION}")
             
-            try:
-                # 获取最新版本信息
-                response = requests.get(UPDATE_URL, timeout=10, verify=False)
-                
-                # 从响应头获取版本
-                # 假设更新服务器返回302重定向到最新exe
-                # 或者直接返回版本号
-                
-                if response.status_code == 200:
-                    # 下载exe
-                    exe_path = self.program_dir / "time_new.exe"
+            # 尝试从GitHub Releases下载
+            for i, update_url in enumerate(UPDATE_URLS):
+                try:
+                    self.logger.info(f"尝试下载: {update_url}")
                     
-                    with open(exe_path, 'wb') as f:
-                        f.write(response.content)
+                    response = requests.get(update_url, timeout=30, verify=False, stream=True)
                     
-                    exe_size = exe_path.stat().st_size
-                    self.logger.info(f"下载完成，大小: {exe_size} bytes")
+                    if response.status_code == 200:
+                        # 保存文件
+                        exe_path = self.program_dir / "time_new.exe"
+                        
+                        total_size = 0
+                        with open(exe_path, 'wb') as f:
+                            for chunk in response.iter_content(chunk_size=8192):
+                                if chunk:
+                                    f.write(chunk)
+                                    total_size += len(chunk)
+                        
+                        self.logger.info(f"下载完成，大小: {total_size} bytes")
+                        
+                        if total_size > 100000:  # 大于100KB才是有效exe
+                            self.logger.info("有新版本！")
+                            if callback:
+                                callback(True, VERSION)
+                            return
+                        else:
+                            self.logger.warning("下载的文件太小")
+                            exe_path.unlink(missing_ok=True)
                     
-                    if exe_size > 100000:  # 大于100KB才是有效exe
-                        self.logger.info("有新版本可更新")
-                        if callback:
-                            callback(True, "新版本")
                     else:
-                        self.logger.warning("下载的文件太小，可能是错误页面")
-                        exe_path.unlink(missing_ok=True)
+                        self.logger.warning(f"下载失败，HTTP状态码: {response.status_code}")
                         
-                        # 备用方案：检查版本号
-                        if callback:
-                            callback(False, None)
-                else:
-                    self.logger.warning(f"检查更新失败，HTTP状态码: {response.status_code}")
-                    if callback:
-                        callback(False, None)
-                        
-            except Exception as e:
-                self.logger.error(f"检查更新失败: {e}")
-                if callback:
-                    callback(False, None)
+                except Exception as e:
+                    self.logger.warning(f"下载失败: {e}")
+                    continue
+            
+            # 所有URL都失败
+            self.logger.info("当前是最新版本")
+            if callback:
+                callback(False, None)
         
         thread = threading.Thread(target=check_thread, daemon=True)
         thread.start()
     
     def do_update(self, callback=None):
         """
-        执行更新：下载新版本并替换
+        执行更新：创建批处理脚本替换程序文件并重启
+        假设time_new.exe已在check_update中下载完成
         callback: 回调函数(result, message)
         """
         def update_thread():
             self.logger.info("开始更新程序...")
             
             try:
-                # 下载最新exe
                 exe_path = self.program_dir / "time_new.exe"
-                old_exe_path = self.program_dir / "time_old.exe"
                 current_exe = sys.executable
                 
-                self.logger.info(f"下载更新: {UPDATE_URL}")
-                
-                response = requests.get(UPDATE_URL, timeout=120, verify=False, stream=True)
-                
-                if response.status_code != 200:
-                    self.logger.error(f"下载失败，HTTP状态码: {response.status_code}")
+                # 检查文件是否存在
+                if not exe_path.exists():
+                    self.logger.error("未找到新版本文件")
                     if callback:
-                        callback("failed", f"HTTP {response.status_code}")
+                        callback("failed", "文件不存在")
                     return
                 
-                # 保存文件
-                total_size = 0
-                with open(exe_path, 'wb') as f:
-                    for chunk in response.iter_content(chunk_size=8192):
-                        if chunk:
-                            f.write(chunk)
-                            total_size += len(chunk)
-                
-                self.logger.info(f"下载完成，大小: {total_size} bytes")
-                
-                # 检查文件有效性
-                if total_size < 100000:
+                # 检查文件大小
+                file_size = exe_path.stat().st_size
+                if file_size < 100000:
                     self.logger.error("文件太小，不是有效的exe")
                     exe_path.unlink(missing_ok=True)
                     if callback:
                         callback("failed", "文件无效")
                     return
                 
-                # 替换文件
-                self.logger.info("替换程序文件...")
+                # 创建综合更新批处理脚本
+                self.logger.info("创建更新脚本...")
                 
-                try:
-                    # 删除旧备份（如果存在）
-                    if old_exe_path.exists():
-                        old_exe_path.unlink()
-                    
-                    # 备份当前exe
-                    if Path(current_exe).exists():
-                        Path(current_exe).rename(old_exe_path)
-                    
-                    # 重命名新exe
-                    exe_path.rename(current_exe)
-                    
-                    self.logger.info("更新成功！程序将在3秒后重启...")
-                    
-                    if callback:
-                        callback("success", "更新完成")
-                    
-                    # 3秒后重启
-                    threading.Timer(3, self.restart_app).start()
-                    
-                except PermissionError:
-                    self.logger.error("文件替换失败：权限不足")
-                    self.logger.info("尝试使用命令行方式替换...")
-                    
-                    # 备用方案：使用copy命令
-                    try:
-                        subprocess.run(f'copy /y "{exe_path}" "{current_exe}_new.exe"', shell=True)
-                        subprocess.run(f'move /y "{current_exe}_new.exe" "{current_exe}"', shell=True)
-                        
-                        self.logger.info("更新成功")
-                        if callback:
-                            callback("success", "更新完成")
-                        threading.Timer(3, self.restart_app).start()
-                        
-                    except Exception as e2:
-                        self.logger.error(f"备用方案也失败: {e2}")
-                        if callback:
-                            callback("failed", str(e2))
-                        
-                except Exception as e:
-                    self.logger.error(f"替换文件失败: {e}")
-                    if callback:
-                        callback("failed", str(e))
+                update_script_content = f'''@echo off
+chcp 65001 >nul
+echo 正在更新程序...
+timeout /t 2 /nobreak >nul
+
+echo 删除旧程序...
+del "{current_exe}"
+
+echo 移动新程序...
+move "{exe_path}" "{current_exe}"
+
+echo 更新完成，启动程序...
+timeout /t 1 /nobreak >nul
+start "" "{current_exe}"
+
+echo 清理更新脚本...
+timeout /t 2 /nobreak >nul
+del "%~f0"
+'''
+                
+                update_script = self.program_dir / "update.bat"
+                with open(update_script, 'w', encoding='utf-8') as f:
+                    f.write(update_script_content)
+                
+                self.logger.info("更新成功！程序即将重启...")
+                
+                if callback:
+                    callback("success", "更新完成")
+                
+                # 使用subprocess启动批处理（ detached模式）
+                subprocess.Popen(
+                    f'cmd /c "{update_script}"',
+                    cwd=str(self.program_dir),
+                    shell=True,
+                    creationflags=subprocess.CREATE_NEW_CONSOLE | subprocess.DETACHED_PROCESS
+                )
+                
+                # 退出程序
+                self.logger.info("退出程序...")
+                if self.root:
+                    self.root.quit()
+                sys.exit(0)
                         
             except Exception as e:
                 self.logger.error(f"更新异常: {e}")

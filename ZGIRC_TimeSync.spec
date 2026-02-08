@@ -5,7 +5,7 @@ a = Analysis(
     ['time.py'],
     pathex=[],
     binaries=[],
-    datas=[('wget.exe', '.')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
