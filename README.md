@@ -184,9 +184,9 @@ A: 请检查：
 
 ## 联系方式
 
-- 项目主页：https://github.com/你的用户名/zgirc-time-sync
-- 问题反馈：https://github.com/你的用户名/zgirc-time-sync/issues
+- 项目主页：https://github.com/kuangxing4250/zgirc-time-sync
+- 问题反馈：https://github.com/kuangxing4250/zgirc-time-sync/issues
 
 ---
 
-**Power by ZGIRC Dev Team** | © 2024 ZGIRC
+**Power by ZGIRC Dev Team** | © 2025 ZGIRC
